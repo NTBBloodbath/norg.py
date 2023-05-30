@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "norg-py"
+version = "0.1.0"
+description = "Python parser for the Norg file format"
+authors = ["NTBBloodbath <bloodbathalchemist@protonmail.com>"]
+license = "GPL-3.0"
+readme = "README.md"
+packages = [{include = "norg"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.0.270"
+black = "^23.3.0"
+pytest = "^7.3.1"
+pytest-black = "^0.3.12"
+pytest-ruff = "^0.0.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
