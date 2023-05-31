@@ -2,13 +2,14 @@
 name = "norg-py"
 version = "0.1.0"
 description = "Python parser for the Norg file format"
-authors = ["NTBBloodbath <bloodbathalchemist@protonmail.com>"]
+authors = ["NTBBloodbath <bloodbathalchemist@protonmail.com>", "VSedov <viv.sv@hotmail.com>"]
 license = "GPL-3.0"
 readme = "README.md"
-packages = [{include = "norg"}]
+# packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+ply = "^3.11"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.270"
