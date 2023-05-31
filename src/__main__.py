@@ -8,7 +8,7 @@ This i sosme information here
 - List item 1
 -- List item 2
 Plain text
-(x) Task 1
+-(x) Task 1
 - Task 2
 ~ Label 1
 ~ Label 2

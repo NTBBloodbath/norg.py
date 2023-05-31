@@ -8,12 +8,6 @@ class NorgLexer:
         self.lexer = lex.lex(module=self)
 
     def t_HEADING(self, t):
-        """
-        HEADING : \*+ .*\n
-        * Heading 1
-        ** Heading 2
-        *** Heading 3
-        """
         r"\*+ .*\n"
         t.value = t.value.strip().split(" ", 1)
         return t
@@ -21,11 +15,6 @@ class NorgLexer:
     #  TODO: (vsedov) (05:15:11 - 31/05/23): Forgot to deal with the -- ----
     #  level of lists o_o
     def t_LISTITEM(self, t):
-        """
-        LISTITEM : (\-|\~)+ .*\n
-        - List item 1
-        -- List item 2
-        """
         r"(\-|\~)+ .*\n"
         t.value = t.value.strip().split(" ", 1)
         return t
