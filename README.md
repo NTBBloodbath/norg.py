@@ -10,7 +10,7 @@ This is a Python project dedicated to parsing and formatting `Neorg` files. Our 
 
 1. Clone the project: `git clone https://github.com/nvim-neorg/norg.py.git`
 2. Navigate to the project directory: `cd norg.py`
-3. Install the necessary requirements: `pip install -r requirements.txt`
+3. Install the necessary requirements: `poetry install`
 
 ## Contributing Guidelines
 
