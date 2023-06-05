@@ -9,7 +9,8 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-ply = "^3.11"
+parglare = "^0.16.1"
+attrs = "^23.1.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.270"
@@ -17,7 +18,33 @@ black = "^23.3.0"
 pytest = "^7.3.1"
 pytest-black = "^0.3.12"
 pytest-ruff = "^0.0.6"
+pytest-print = "^0.3.1"
+isort = "^5.12.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+parallel = true
+branch = true
+source_pkgs = ["norg/src"]
+source = ["norg/tests"]
+omit = ["**/__main__.py"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 0 # temp
+precision = 2
+exclude_lines = ["pragma: no cover", "pass"]
+
+[tool.isort]
+multi_line_output = 6
+order_by_type = false
+case_sensitive = true
+combine_as_imports = true
+line_length = 120
+atomic = true
+
+[tool.ruff]
+line-length = 150
