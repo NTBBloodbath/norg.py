@@ -1,0 +1,28 @@
+document: (block NEWLINE?)*;
+
+block: heading
+     | list
+     | quote
+     | at_block;
+
+heading: '*' text NEWLINE;
+
+list: unordered_list | ordered_list;
+
+unordered_list: ('-' text NEWLINE)+;
+
+ordered_list: ('~' text NEWLINE)+;
+
+quote: '>' text_line (NEWLINE text_line)*;
+
+URL: 'https://' text;
+
+at_block: '@' text_line (NEWLINE text_line)*;
+
+terminals
+text: /\w+/;
+text_line: /.*?/;
+NEWLINE: /\n/;
+
+
+
