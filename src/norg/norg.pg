@@ -23,6 +23,3 @@ terminals
 text: /\w+/;
 text_line: /.*?/;
 NEWLINE: /\n/;
-
-
-

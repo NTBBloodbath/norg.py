@@ -1,7 +1,5 @@
 import parglare
-from parglare import GLRParser, Grammar
-
-from src.norg.abstract.actions import ConcatAction, IdentityAction, Terminal
+from parglare import GLRParser
 
 
 class ParserCore:

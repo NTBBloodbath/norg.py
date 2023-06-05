@@ -1,5 +1,3 @@
-import re
-
 from src.norg.document_structure import DOCUMENT_STRUCTURE, TERMINAL_PATTERNS
 from src.norg.grammar.grammar import GrammarGenerator
 from src.norg.parser import ParserCore

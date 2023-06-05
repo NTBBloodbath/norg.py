@@ -25,6 +25,7 @@ debugpy = "^1.6.7"
 icecream = "^2.1.3"
 taskipy = "^1.11.0"
 pytest-cov = "^4.1.0"
+pycln = "^2.1.5"
 
 [build-system]
 requires = ["poetry-core"]
@@ -66,3 +67,6 @@ report = "coverage report"
 doc = "interrogate -c pyproject.toml"
 isort = "isort ."
 freeze = "poetry export -f requirements.txt > requirements.txt --without-hashes"
+
+[tool.black]
+line-length = 150
