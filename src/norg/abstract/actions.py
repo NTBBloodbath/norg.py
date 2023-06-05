@@ -1,119 +1,120 @@
 import re
 from abc import ABC, abstractmethod
+from typing import Optional
+
+import attr
 
 
-class AbstractAction(ABC):
+@attr.s(auto_attribs=True)
+class Action(ABC):
     """
-    Abstract base class for defining actions during parsing.
+    Abstract base class for grammar actions.
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    process(self, *args):
+        Abstract method to be implemented by subclasses. Processes the given arguments and returns the result.
     """
-
-    def __init__(self, name):
-        """
-        Initializes the AbstractAction.
-
-        Parameters:
-        - name (str): The name of the action.
-        """
-        self.name = name
 
     @abstractmethod
-    def __call__(self, *args):
-        """
-        Executes the action.
-
-        Parameters:
-        - *args: Variable number of arguments passed to the action.
-
-        Returns:
-        - The result of the action.
-        """
+    def process(self, *args):
         pass
 
 
-class IdentityAction(AbstractAction):
+@attr.s(auto_attribs=True)
+class IdentityAction(Action):
     """
-    Action that returns its first argument unchanged.
+    Class for an identity action in the grammar.
+
+    Attributes
+    ----------
+    name : str
+        The name of the identity action.
+    elements : Optional[list]
+        A list of elements associated with the identity action.
+
+    Methods
+    -------
+    process(self, *args):
+        Processes the given arguments and returns the result. In the case of an IdentityAction, it returns the first argument.
     """
 
-    def __call__(self, *args):
-        """
-        Executes the action by returning the first argument.
+    name: str
+    elements: Optional[list]
 
-        Parameters:
-        - *args: Variable number of arguments passed to the action.
-
-        Returns:
-        - The first argument.
-        """
+    def process(self, *args):
         return args[0]
 
 
-class ConcatAction(AbstractAction):
+@attr.s(auto_attribs=True)
+class ConcatAction(Action):
     """
-    Action that concatenates its arguments into a single string.
+    Class for a concatenation action in the grammar.
+
+    Attributes
+    ----------
+    name : str
+        The name of the concatenation action.
+    elements : list
+        A list of elements to be concatenated.
+
+    Methods
+    -------
+    process(self, *args):
+        Processes the arguments and concatenates them, returning a formatted string with the name and the concatenated elements.
     """
 
-    def __call__(self, *args):
-        """
-        Executes the action by concatenating the arguments.
+    name: str
+    elements: list
 
-        Parameters:
-        - *args: Variable number of arguments passed to the action.
-
-        Returns:
-        - The concatenated string.
-        """
+    def process(self, *args):
         result = []
         for arg in args:
             if isinstance(arg, list):
-                result.append(self.__call__(*arg))
+                result.append(self.process(*arg))
             else:
                 result.append(arg)
-        return "".join(result)
+        return f'{self.name}: {" ".join(result)}'
 
 
-class IdentityListAction(AbstractAction):
+@attr.s(auto_attribs=True)
+class Terminal:
     """
-    Action that returns its arguments as a list.
-    """
+    Class for a terminal in the grammar.
 
-    def __call__(self, *args):
-        """
-        Executes the action by returning the arguments as a list.
+    Attributes
+    ----------
+    pattern : str
+        The terminal pattern as a regular expression.
 
-        Parameters:
-        - *args: Variable number of arguments passed to the action.
-
-        Returns:
-        - The arguments as a list.
-        """
-        return list(args)
-
-
-class Recognizer(ABC):
-    """
-    Base class for creating terminal recognizers.
+    Methods
+    -------
+    match(self, text: str, pos: int) -> Optional[str]:
+        Tries to match the terminal pattern in the given text at the specified position.
+        If matched, returns the matched string; otherwise, returns None.
     """
 
-    def __init__(self, regex):
-        """
-        Initializes the Recognizer.
+    pattern: str = attr.ib(converter=re.compile)
 
-        Parameters:
-        - regex (str): Regular expression pattern used for recognition.
+    def match(self, text: str, pos: int) -> Optional[str]:
         """
-        self.regex = re.compile(regex)
+        Tries to match the terminal pattern in the given text at the specified position.
 
-    def __call__(self, text, pos):
+        Parameters
+        ----------
+        text : str
+            The text to search for a matching terminal pattern.
+        pos : int
+            The position in the text where the search should start.
+
+        Returns
+        -------
+        Optional[str]
+            The matched string if the terminal pattern is found, or None otherwise.
         """
-        Performs recognition of the input text.
-
-        Parameters:
-        - text (str): The input text to recognize.
-        - pos (int): The starting position in the text.
-
-        Returns:
-        - The recognized substring or None if not recognized.
-        """
-        match = self.regex.match(text[pos:])
+        match = self.pattern.match(text[pos:])
         return match.group(0) if match else None
