@@ -12,10 +12,7 @@ DOCUMENT_STRUCTURE = [
     ConcatAction("AT", ["at_block", "at_language", "text", "at_end"]),
     IdentityAction("TEXT", ["text"]),
 ]
-test_1 = """
-@code pointer
-@end
-""".strip()
+
 
 #     ╭────────────────────────────────────────────────────────────────────╮
 #     │ Thank gpt for dealing with the regex crap                          │
